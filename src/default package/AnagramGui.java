@@ -216,10 +216,10 @@ public class AnagramGui extends Application {
 		else {
 			text.setStyle("");
 			if (word.equals(answer)) {
-			Label newLabel = new Label("Cogratulation your answer is correct.");
-			newLabel.setFont(new Font(25));
-			newLabel.setAlignment(Pos.CENTER);
-			borderPane.setCenter(newLabel);
+				Label newLabel = new Label("Cogratulation your answer is correct.");
+				newLabel.setFont(new Font(25));
+				newLabel.setAlignment(Pos.CENTER);
+				borderPane.setCenter(newLabel);
 				
 			}
 			else if (count == 0) {
