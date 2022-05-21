@@ -1,3 +1,4 @@
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +22,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Aleki_one
+ * Anagram GUI game using javaFX
+ *
+ */
 public class AnagramGui extends Application {
 	BorderPane borderPane;
 	VBox vBox, rBox;
@@ -39,17 +46,12 @@ public class AnagramGui extends Application {
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
-		gameIntro();
-		
-		
-		Scene scene = new Scene(borderPane,400,400);
-		arg0.setScene(scene);
-		arg0.setTitle("ANAGRAM GAME");
-		arg0.show();
-	}
-	
-	protected void gameIntro() {
+		/**
+		 * Create a scene to represent your graphical drawing.
+		 * We will use buttons to initialize the game.
+		 * play button - to play &&
+		 * exit button to close the game.
+		 */
 		Button play = new Button("PLAY");
 		play.setOnAction(e -> {playGame();});
 		Button exit = new Button("EXIT");
@@ -67,10 +69,25 @@ public class AnagramGui extends Application {
 		BorderPane.setMargin(box, new Insets(12,12,12,12));
 		borderPane.setCenter(box);
 		
+		
+		Scene scene = new Scene(borderPane,400,400);
+		arg0.setScene(scene);
+		arg0.setTitle("ANAGRAM GAME");
+		arg0.show();
 	}
 
+	/**
+	 * after the user has agreed to play, this method runs.
+	 */
+	
 	String choice;
 	void playGame() {
+		
+		/**
+		 * we create the game player and disable or enable necessary buttons.
+		 * we also use vbox and hbox classes to do the alignment of the nodes.
+		 */
+		
 		String selections[] = {"Choose a level", "Hard", "Medium", "Simple"};
 		choiceBox = new ChoiceBox(FXCollections.observableArrayList(selections));
 		label = new Label();
@@ -106,6 +123,12 @@ public class AnagramGui extends Application {
 		borderPane.setRight(rBox);
 		BorderPane.setMargin(rBox, new Insets(12,12,12,12));
 		
+		/**
+		 * here we add a listener that responds every time a new selection is made.
+		 * it then updates your solution to a variable and calls another method,
+		 *   that creates a game for you.
+		 */
+		
 		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>(){
 
 			@Override
@@ -117,9 +140,20 @@ public class AnagramGui extends Application {
 		});
 	}
 	
+	
+	/**
+	 * The method for updating state of the scene nodes.
+	 */
+	
 	String spacedWord, word; 
 	int count = 5;
 	void update(String choice) {
+		
+		/**
+		 * Here the game is set to according to user selection above.
+		 * The game levels are created by createLevel class.
+		 * Here we also set active/inactive the necessary buttons and fields. 
+		 */
 		
 		String[] answer = {""};
 		choiceBox.setDisable(true);
@@ -159,6 +193,11 @@ public class AnagramGui extends Application {
 		
 	}
 		
+	/**
+	 * here is the last method that checks your answer.
+	 * @param word is the correct word.
+	 * @param answer is the word the user guesses.
+	 */
 		
 	void checkAnswer(String word, String answer) {
 		label.setText("Attempts remaining\n" + count);
@@ -166,6 +205,7 @@ public class AnagramGui extends Application {
 			if (word.equals(answer)) {
 				Label newLabel = new Label("Cogratulation your answer is correct.");
 				newLabel.setFont(new Font(25));
+				newLabel.setAlignment(Pos.CENTER);
 				borderPane.setCenter(newLabel);
 			}
 			else if (count == 0) {
